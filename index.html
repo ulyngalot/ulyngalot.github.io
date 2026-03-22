@@ -126,6 +126,24 @@
       background: #e2e8f0; color: #475569;
     }
 
+    /* ── Video Introduction ── */
+    .video-section { text-align: center; padding: 60px 0 0; }
+    .video-wrapper {
+      max-width: 720px; margin: 0 auto;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      border: 1px solid #e2e8f0;
+      background: #0f172a;
+    }
+    .video-wrapper video {
+      width: 100%; display: block;
+      border-radius: 16px;
+    }
+    .video-caption {
+      margin-top: 14px; font-size: 0.85rem;
+      color: #64748b; font-weight: 500;
+    }
+
     /* ── Skills ── */
     .skills-grid {
       display: grid;
@@ -342,6 +360,21 @@
     <div class="stat"><div class="stat-number">6+</div><div class="stat-label">Enterprise Projects</div></div>
     <div class="stat"><div class="stat-number">8+</div><div class="stat-label">Third-Party Integrations</div></div>
   </div>
+</section>
+
+<!-- Video Introduction -->
+<section class="video-section container">
+  <div class="section-header">
+    <h2>Meet Me</h2>
+    <p>A brief video introduction about who I am and what I bring to the table.</p>
+  </div>
+  <div class="video-wrapper">
+    <video controls preload="metadata" poster="">
+      <source src="https://gist.githubusercontent.com/ulyngalot/9eaed9274d0818ba9fd9834b4454613b/raw/ulysses-ngalot-video-introduction.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <p class="video-caption">Self-introduction &mdash; Ulysses Ngalot</p>
 </section>
 
 <!-- Projects -->
