@@ -1,0 +1,47 @@
+{
+  "_comment": "Edit this file on GitHub to change contact details, the hero counters, or the footer copyright. No need to touch index.html. Any key you leave out falls back to the built-in default in SITE_DEFAULTS. If this file is deleted or has a syntax error, the site silently uses those defaults.",
+
+  "contact": {
+    "email": "ungalot@hotmail.com",
+
+    "_phone": "Enter the number however you like — '09275337025', '+63 927 533 7025' and '9275337025' all work. The leading 0 is dropped and phoneCountryCode is prepended for the tel: and WhatsApp links.",
+    "phone": "09275337025",
+    "phoneCountryCode": "63",
+
+    "_phoneDisplay": "Optional. Leave empty to auto-format as '+63 927 533 7025'; set it to override the visible text exactly.",
+    "phoneDisplay": "",
+
+    "linkedin": "https://www.linkedin.com/in/ulysses-ngalot/",
+    "whatsappMessage": "Hi Ulysses, I found your portfolio and would like to get in touch!"
+  },
+
+  "copyright": {
+    "holder": "Ulysses Ngalot",
+    "notice": "All rights reserved.",
+    "_startYear": "null shows just the current year ('© 2026'). Set a year to show a range instead ('© 2024–2026').",
+    "startYear": null
+  },
+
+  "_stats": "Each counter is derived from the current year, so it increments on its own. Use 'sinceYear' for true elapsed years, or 'baseYear' + 'baseValue' + 'perYear' for a growth rate. Set perYear to 0 to freeze a counter at baseValue. Optional 'min' / 'max' clamp the result.",
+  "stats": [
+    {
+      "label": "Years Experience",
+      "sinceYear": 2014,
+      "suffix": "+"
+    },
+    {
+      "label": "Enterprise Projects",
+      "baseYear": 2026,
+      "baseValue": 6,
+      "perYear": 1,
+      "suffix": "+"
+    },
+    {
+      "label": "Third-Party Integrations",
+      "baseYear": 2026,
+      "baseValue": 8,
+      "perYear": 1,
+      "suffix": "+"
+    }
+  ]
+}
