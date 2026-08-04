@@ -1,0 +1,65 @@
+{
+  "_comment": "Edit this file on GitHub to update the FormsExpress Platform card and modal. No need to touch index.html. Text fields accept inline HTML (<strong>, <br/>, <em>, links). If this file is deleted or has a syntax error, the site falls back to the copy built into index.html.",
+
+  "title": "FormsExpress Platform",
+  "period": "Full Stack Developer · Sep 2025 – Present",
+  "cardRole": "Full Stack Developer · 2025 – 2026",
+
+  "url": "https://www.formsexpress.com.au/",
+
+  "overview": "Contributed to the development and ongoing maintenance of the <strong>FormsExpress</strong> multi-tenant SaaS platform, serving Australian local councils with end-to-end billing lifecycle management.",
+
+  "modulesHeading": "Key Modules Delivered",
+  "modules": [
+    {
+      "name": "eNotices",
+      "description": "Full-lifecycle electronic notice delivery system enabling councils to create, validate, approve, and deliver notices (rates, bills) to ratepayers via email, SMS, print, and postal. Includes a staff dashboard and a ratepayer-facing portal."
+    },
+    {
+      "name": "BPay Integration",
+      "description": "Integrated BPay bill payment processing including biller registration management, automated bill summary generation and batch upload to the BPay API, and bill summary release/sendout."
+    },
+    {
+      "name": "Identity Server",
+      "description": "Centralized OAuth 2.0 / OpenID Connect identity provider handling authentication, multi-tenant user management, role-based and resource-based permissions, and external IdP federation (Azure AD, Google)."
+    },
+    {
+      "name": "FlexiPay",
+      "description": "Payment processing platform for flexible payment schedules (one-off, direct debit, quarterly) with automated payment execution, daily reconciliation, and Quickstream gateway integration."
+    },
+    {
+      "name": "Bill Archive",
+      "description": "Dual-DMS document management system integrating modern (Quantum DMS) and legacy (20+ year) storage, with on-demand migration, PDF viewing/editing (PSPDFKit) and parallel search across both systems."
+    },
+    {
+      "name": "DevOps Automation",
+      "description": "Designed and implemented Azure DevOps Pipelines across all projects - including automating the release notes generation using XplatGenerateReleaseNotes, publishing to Azure DevOps Wikis and Zoho Learn, and sending formatted email notifications."
+    },
+    {
+      "name": "Cassie AI",
+      "description": "An AI voice assistant for Australian local councils that answers ratepayer calls 24/7 — resolving enquiries from a per-council knowledge base, capturing callbacks, transferring to the right team, and automatically paging/escalating to on-call staff via SMS, email and Teams with a full audit trail.<br/><br/>Technical: A Sadie/Retell-hosted voice assistant fronting Azure Functions webhooks, with per-council config in Table Storage and Next.js dashboard/admin portals."
+    }
+  ],
+
+  "tech": [
+    ".NET 8 / ASP.NET Core",
+    "Entity Framework Core",
+    "React 18 + TypeScript + Vite",
+    "Redux Toolkit",
+    "MediatR (CQRS)",
+    "SQL Server",
+    "Azure App Service",
+    "Azure Functions",
+    "Azure Storage Browsers",
+    "Azure Table Storage and Next.js",
+    "Azure Key Vault",
+    "Azure App Configuration",
+    "Application Insights",
+    "Finbuckle.MultiTenant",
+    "OpenIddict / OpenID Connect",
+    "BPay API",
+    "Quickstream",
+    "Azure DevOps CI/CD",
+    "PowerShell"
+  ]
+}
