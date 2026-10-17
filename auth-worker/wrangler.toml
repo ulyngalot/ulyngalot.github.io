@@ -1,0 +1,23 @@
+name = "ulyngalot-auth"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+# The protected application bundles are plain, readable .js files in the repo.
+# Importing them as text lets the Worker hand them out only to an authenticated
+# caller, while keeping them editable and reviewable like any other source file.
+[[rules]]
+type = "Text"
+globs = ["**/*.appbundle.js"]
+fallthrough = true
+
+# Optional. Bind a KV namespace to change credentials from the Cloudflare
+# dashboard without redeploying, and to make the login rate limit shared
+# across isolates instead of per-isolate.
+#   npx wrangler kv namespace create AUTH_KV
+# then uncomment and paste the id below.
+# [[kv_namespaces]]
+# binding = "AUTH_KV"
+# id = "<your-namespace-id>"
+
+[observability]
+enabled = true

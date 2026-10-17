@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Edit the real text inside a PDF, and convert it to DOCX or HTML. Private, and everything runs in your browser." />
+  <title>PDF Editor | Ulysses Ngalot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/app.css">
+</head>
+
+<!--
+  This page is a shell. It deliberately contains no editor code: the PDF
+  editor is served by the authentication Worker and only to a signed-in
+  caller, so opening this URL without credentials — or editing the script
+  below in devtools — yields the sign-in form and nothing else.
+-->
+<body>
+
+<header>
+  <div class="nav">
+    <div class="nav-left">
+      <a class="nav-home" href="../">Ulysses Ngalot</a>
+      <span class="nav-title"><strong>PDF Editor</strong> &mdash; edit the text inside a PDF, or convert it to Word or HTML</span>
+    </div>
+    <div class="nav-right">
+      <span id="navUser"></span>
+      <button class="btn icon" id="themeBtn" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="stage"></div>
+
+<noscript>
+  <div class="gate">
+    <div class="gate-card">
+      <h1>JavaScript required</h1>
+      <div class="sub">This editor runs entirely in your browser, so it needs JavaScript enabled.</div>
+    </div>
+  </div>
+</noscript>
+
+<script>window.PAGE_GUARD = { app: 'pdf-editor', name: 'PDF Editor' };</script>
+<script type="module" src="../assets/auth.js"></script>
+
+</body>
+</html>

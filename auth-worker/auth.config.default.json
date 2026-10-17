@@ -1,0 +1,46 @@
+{
+  "_comment": "Default credentials and session policy, bundled with the Worker so a fresh deploy works immediately. To change credentials WITHOUT redeploying, put a document of this same shape in the AUTH_KV namespace under the key 'auth:config' (live within ~60s) or in the AUTH_CONFIG secret (live on the next cold start). Layers are merged, so a KV document containing only 'users' keeps the session policy from here. Generate a passwordHash block with: node tools/hash-password.mjs <username>",
+
+  "_siteSalt": "Public domain separator mixed into the per-user client salt. Changing it invalidates every passwordHash, so regenerate them all if you do.",
+  "siteSalt": "ulyngalot.github.io/auth",
+
+  "_iterations": "clientIterations is the PBKDF2 work factor run in the browser; it is the one that actually protects the password offline. serverIterations is deliberately small so the Worker stays inside the 10ms CPU budget of the Free plan. Raise serverIterations only on a paid plan.",
+  "clientIterations": 210000,
+  "serverIterations": 1000,
+
+  "_users": "Default login is ungalot / password.. — change it before this is of any real use. Each entry needs either a passwordHash block (recommended) or a plaintext 'password' (convenient, logged as a warning, and costs CPU on the first login after a cold start).",
+  "users": [
+    {
+      "username": "ungalot",
+      "passwordHash": {
+        "algorithm": "PBKDF2-SHA256",
+        "clientIterations": 210000,
+        "serverIterations": 1000,
+        "serverSalt": "WFCT8gZwDe4UcdFCYmvAXw==",
+        "hash": "7su3lf1Fq3js7nH/EH7AzuH2zFla5wuntlj9fZKbOQg="
+      }
+    }
+  ],
+
+  "_session": "ttlMinutes is the hard ceiling on a session. idleMinutes ends it early if the tab goes unused; it slides forward on every /api/session call.",
+  "session": {
+    "ttlMinutes": 480,
+    "idleMinutes": 60
+  },
+
+  "_allowedOrigins": "Browser origins permitted to call the API. Leave the localhost entries in place for local development; they cannot be reached from anywhere else.",
+  "allowedOrigins": [
+    "https://ulyngalot.github.io",
+    "http://localhost:4173",
+    "http://127.0.0.1:4173"
+  ],
+
+  "_rateLimit": "Per-IP throttle on failed logins. Enforced with KV when AUTH_KV is bound, otherwise per-isolate in memory.",
+  "rateLimit": {
+    "maxAttempts": 10,
+    "windowSeconds": 300
+  },
+
+  "_apps": "Protected bundles the Worker will serve to an authenticated caller.",
+  "apps": ["md-viewer", "pdf-editor"]
+}

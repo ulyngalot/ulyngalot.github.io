@@ -1,0 +1,8 @@
+# Local secrets for `wrangler dev`. Never commit this: in production the same
+# values are set with `wrangler secret put` or in a KV namespace.
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+node_modules/
+.wrangler/

@@ -1,0 +1,9 @@
+# Copy to .dev.vars to override the bundled credentials while developing.
+# One line, valid JSON, same shape as auth.config.default.json. Generate the
+# passwordHash block with:  node tools/hash-password.mjs <username>
+#
+# AUTH_CONFIG={"users":[{"username":"someone","passwordHash":{"serverSalt":"...","serverIterations":1000,"hash":"..."}}]}
+#
+# Optional. Without it, session tokens are signed with a key derived from the
+# configured password, which also means changing the password signs everyone out.
+# SESSION_SECRET=a-long-random-string-at-least-16-characters
