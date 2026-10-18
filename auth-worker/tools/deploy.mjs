@@ -48,7 +48,14 @@ function wrangler(args, options) {
 const who = wrangler(['whoami'], { stdio: ['ignore', 'pipe', 'pipe'] });
 const whoOutput = (who.stdout || '') + (who.stderr || '');
 
-if (/not authenticated|CLOUDFLARE_API_TOKEN/i.test(whoOutput) || who.status !== 0) {
+/* Test for success, not for failure. A signed-in whoami says "The API Token
+   is read from the CLOUDFLARE_API_TOKEN environment variable", so searching
+   for the token's name reports a working session as a broken one. */
+const signedIn = who.status === 0 &&
+  !/not authenticated/i.test(whoOutput) &&
+  (/logged in/i.test(whoOutput) || /\b[0-9a-f]{32}\b/.test(whoOutput));
+
+if (!signedIn) {
   console.error('Not signed in to Cloudflare, so there is nothing to deploy to.\n');
   console.error('Either sign in interactively:\n');
   console.error('    npx wrangler login\n');
@@ -63,8 +70,11 @@ if (/not authenticated|CLOUDFLARE_API_TOKEN/i.test(whoOutput) || who.status !== 
   process.exit(1);
 }
 
-const account = /Account Name.*?│\s*([^│]+?)\s*│/s.exec(whoOutput);
-if (account) console.log('Signed in to Cloudflare account: ' + account[1].trim());
+/* The account row is the one whose second cell is a 32-character id. */
+const account = /│\s*([^│]+?)\s*│\s*([0-9a-f]{32})\s*│/.exec(whoOutput);
+if (account) {
+  console.log('Signed in to Cloudflare account: ' + account[1] + ' (' + account[2] + ')');
+}
 
 /* ── 2. Deploy, with the terminal attached so prompts work. ─────────────── */
 
