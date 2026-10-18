@@ -1,0 +1,12 @@
+# GitHub Pages builds this site with Jekyll. The Worker is server-side code
+# that happens to live in the same repository; it is not part of the website
+# and does not need publishing alongside it. Excluding it keeps the Worker's
+# source — including the password hash in auth.config.default.json — off the
+# public site, and keeps the build smaller.
+#
+# (The repository itself is public, so this is tidiness rather than secrecy.
+# The real protection is that the hash is useless without the password, and
+# that credentials should be overridden with a Worker secret anyway.)
+exclude:
+  - auth-worker
+  - README.md
