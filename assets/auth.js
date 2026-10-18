@@ -243,10 +243,16 @@ function renderLogin(initialMessage) {
           return;
         }
       } catch (err) {
+        /* Naming the endpoint matters here: the overwhelmingly likely cause
+           is that the Worker has not been deployed yet, or that apiBaseUrl
+           still points at a guessed workers.dev subdomain. "Check your
+           connection" would send someone looking in the wrong place. */
         setMessage(
           err.message === 'unconfigured'
-            ? 'This page is not pointed at an authentication service yet. See content/auth.json.'
-            : 'Could not reach the authentication service. Check your connection and try again.',
+            ? 'This page is not pointed at an authentication service yet. Set apiBaseUrl in content/auth.json.'
+            : 'Could not reach the sign-in service at ' + apiBase + '. If it has not been deployed yet, '
+              + 'see auth-worker/README.md; if it has, check that apiBaseUrl in content/auth.json matches '
+              + 'the URL wrangler printed.',
           'error'
         );
       }
