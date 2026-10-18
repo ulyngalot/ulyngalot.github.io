@@ -27,14 +27,27 @@ ulyngalot.github.io                      ulyngalot-auth.workers.dev
 ```bash
 cd auth-worker
 npm install
-npx wrangler login
-npx wrangler deploy
+npx wrangler login     # once; opens a browser
+npm run deploy
 ```
 
-`wrangler deploy` prints the Worker's URL. Put that origin in
-[`content/auth.json`](../content/auth.json) as `apiBaseUrl`, and add it to
-`allowedOrigins` in the Worker config if your site is not on
-`ulyngalot.github.io`.
+`npm run deploy` deploys the Worker **and writes the URL it was given into
+[`content/auth.json`](../content/auth.json)**. Commit that change and merge
+it, or the live pages will still point at the wrong address.
+
+That last part matters more than it looks. The workers.dev subdomain belongs
+to your Cloudflare account, not to this repository, so the value committed
+here is a guess until a deploy has actually happened. Copying it across by
+hand is the step everyone forgets, and the symptom — a sign-in page that
+cannot reach anything — looks nothing like its cause.
+
+Use `npm run deploy:raw` for a plain `wrangler deploy` that touches no files.
+
+On a first deploy Cloudflare may ask you to register a workers.dev
+subdomain; that is a one-off, and the URL is stable afterwards.
+
+If your site is not on `ulyngalot.github.io`, add its origin to
+`allowedOrigins` as well, or sign-in is refused with a 403.
 
 Then **change the password** — the shipped default is public knowledge, since
 it is in this repository.

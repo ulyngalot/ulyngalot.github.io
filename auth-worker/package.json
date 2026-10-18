@@ -6,9 +6,10 @@
   "description": "Authentication API and protected application host for the md-viewer and pdf-editor pages.",
   "scripts": {
     "dev": "wrangler dev --port 8787",
-    "deploy": "wrangler deploy",
+    "deploy": "node tools/deploy.mjs",
     "test": "node --test test/",
-    "hash": "node tools/hash-password.mjs"
+    "hash": "node tools/hash-password.mjs",
+    "deploy:raw": "wrangler deploy"
   },
   "devDependencies": {
     "wrangler": "4.45.0"
