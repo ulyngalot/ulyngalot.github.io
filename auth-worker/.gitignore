@@ -4,5 +4,10 @@
 .dev.vars.*
 !.dev.vars.example
 
+# Wrangler also reads .env here; a CLOUDFLARE_API_TOKEN placed in one must
+# never be committed.
+.env
+.env.*
+
 node_modules/
 .wrangler/
