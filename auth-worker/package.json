@@ -9,7 +9,8 @@
     "deploy": "node tools/deploy.mjs",
     "test": "node --test test/",
     "hash": "node tools/hash-password.mjs",
-    "deploy:raw": "wrangler deploy"
+    "deploy:raw": "wrangler deploy",
+    "set-password": "node tools/set-password.mjs"
   },
   "devDependencies": {
     "wrangler": "4.45.0"

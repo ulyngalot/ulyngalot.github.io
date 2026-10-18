@@ -54,6 +54,25 @@ it is in this repository.
 
 ## Changing the username and password
 
+The quick way, once the Worker is deployed:
+
+```bash
+npm run set-password
+```
+
+It asks for a username and password (not echoed), hashes the password
+locally, and stores the result as the `AUTH_CONFIG` secret. The password
+itself never reaches disk, the command line, shell history or Cloudflare —
+only the hash does. Nothing in this repository changes, because the secret
+overrides the bundled defaults rather than replacing them.
+
+The change takes effect within seconds, on the Worker's next start. It also
+invalidates every open session, since the token signing key is derived from
+the password material unless `SESSION_SECRET` is set.
+
+The rest of this section is what that script does by hand, and how the
+layering works.
+
 Credentials live in a JSON document with this shape:
 
 ```json
