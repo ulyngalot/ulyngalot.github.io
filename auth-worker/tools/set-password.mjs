@@ -17,6 +17,7 @@
 
 import { spawnSync } from 'node:child_process';
 import { createInterface } from 'node:readline';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
@@ -105,9 +106,77 @@ if (run.status !== 0) {
   process.exit(run.status || 1);
 }
 
-console.log('\nDone. "' + username + '" can now sign in with the new password.');
-console.log('The old credentials stop working within a few seconds, as soon as the');
-console.log('Worker next starts. Changing the password also invalidates every open');
-console.log('session, so anyone signed in will be asked to sign in again.');
-console.log('\nNothing was written to this repository: the bundled defaults in');
-console.log('auth.config.default.json are now overridden by the secret, not replaced.');
+/* ── Prove it actually took ───────────────────────────────────────────────
+   A secret that is stored empty, or stored against the wrong Worker, leaves
+   the bundled defaults quietly in charge — the command looks like it worked
+   and the published default password still opens the gate. The only way to
+   know is to ask the deployed Worker. */
+
+let apiBase = '';
+try {
+  const siteConfig = readFileSync(join(here, '..', '..', 'content', 'auth.json'), 'utf8');
+  apiBase = ((/"apiBaseUrl"\s*:\s*"([^"]*)"/.exec(siteConfig) || [])[1] || '').replace(/\/+$/, '');
+} catch (err) {
+  /* checked below */
+}
+
+if (!apiBase) {
+  console.warn('\nStored, but content/auth.json has no apiBaseUrl, so this could not be');
+  console.warn('checked against the live Worker. Verify the new password by hand.');
+  process.exit(0);
+}
+
+const attempt = async (user, secret) => {
+  const key = await deriveClientKey(secret, SITE_SALT, user, DEFAULT_CLIENT_ITERATIONS);
+  const res = await fetch(apiBase + '/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: user, clientKey: key })
+  });
+  return res.status;
+};
+
+console.log('Checking it took effect on ' + apiBase + '…');
+
+let ok = false;
+let lastStatus = 0;
+for (let i = 0; i < 10; i++) {
+  await new Promise((r) => setTimeout(r, i === 0 ? 2000 : 3000));
+  try {
+    lastStatus = await attempt(username, password);
+    if (lastStatus === 200) { ok = true; break; }
+  } catch (err) {
+    lastStatus = 0;
+  }
+  process.stdout.write('.');
+}
+process.stdout.write('\n');
+
+if (!ok) {
+  console.error('\nThe secret was stored, but the new password still does not sign in');
+  console.error('(last response: HTTP ' + lastStatus + '). The old credentials are probably');
+  console.error('still active. Check what is actually stored with:\n');
+  console.error('    npx wrangler secret list\n');
+  console.error('If AUTH_CONFIG is missing, the value did not reach Cloudflare.');
+  process.exit(1);
+}
+
+/* And confirm the published default is genuinely dead. */
+let defaultStatus = null;
+try {
+  defaultStatus = await attempt('ungalot', 'password..');
+} catch (err) {
+  /* advisory */
+}
+
+console.log('\nDone. "' + username + '" signs in with the new password.');
+if (defaultStatus === 200) {
+  console.warn('WARNING: the default ungalot / password.. still works as well.');
+  console.warn('Both accounts are active; remove the default from your config.');
+} else if (defaultStatus !== null) {
+  console.log('The published default ungalot / password.. no longer works (HTTP '
+    + defaultStatus + ').');
+}
+console.log('\nEvery open session was invalidated, so anyone signed in must sign in again.');
+console.log('Nothing was written to this repository: the bundled defaults in');
+console.log('auth.config.default.json are overridden by the secret, not replaced.');
