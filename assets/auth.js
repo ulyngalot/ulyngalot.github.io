@@ -10,7 +10,7 @@
    The password never leaves the browser. PBKDF2 runs here and only the
    derived key is sent, so the plaintext is absent from the request body, from
    any intermediary's logs and from the Worker's own logs. See
-   auth-worker/src/core/crypto.js for why the work factor is split this way.
+   src/core/crypto.js in the private ulyngalot-auth-worker repo for why the work factor is split this way.
 
    The page declares what it needs before loading this file:
 
@@ -251,7 +251,7 @@ function renderLogin(initialMessage) {
           err.message === 'unconfigured'
             ? 'This page is not pointed at an authentication service yet. Set apiBaseUrl in content/auth.json.'
             : 'Could not reach the sign-in service at ' + apiBase + '. If it has not been deployed yet, '
-              + 'see auth-worker/README.md; if it has, check that apiBaseUrl in content/auth.json matches '
+              + 'see the ulyngalot-auth-worker repo README; if it has, check that apiBaseUrl in content/auth.json matches '
               + 'the URL wrangler printed.',
           'error'
         );
