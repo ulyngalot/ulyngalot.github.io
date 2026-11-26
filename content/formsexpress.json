@@ -37,7 +37,7 @@
     },
     {
       "name": "Cassie AI",
-      "description": "An AI voice assistant for Australian local councils that answers ratepayer calls 24/7 — resolving enquiries from a per-council knowledge base, capturing callbacks, transferring to the right team, and automatically paging/escalating to on-call staff via SMS, email and Teams with a full audit trail.<br/><br/>Technical: A Sadie/Retell-hosted voice assistant fronting Azure Functions webhooks, with per-council config in Table Storage and Next.js dashboard/admin portals."
+      "description": "An AI voice assistant for Australian local councils that answers ratepayer calls 24/7 — resolving enquiries from a per-council knowledge base, capturing callbacks, transferring to the right team, and automatically paging/escalating to on-call staff via SMS, email and Teams with a full audit trail.<br/><br/>Technical: An Azure AI based voice assistant fronting Azure Functions webhooks, with per-council config in Table Storage and Next.js dashboard/admin portals."
     }
   ],
 
